@@ -62,10 +62,3 @@ function codeblowing_register_sidebars() {
     ));
 }
 add_action('widgets_init', 'codeblowing_register_sidebars');
-
-add_action('admin_enqueue_scripts', 'codeblowing_enqueue_select2_in_woocommerce');
-
-function codeblowing_enqueue_select2_in_woocommerce() {
-    wp_enqueue_script('select2');
-    wp_enqueue_style('select2');
-}

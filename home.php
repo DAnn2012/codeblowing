@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 get_header(); 
 
-get_template_part('template-parts/page-banner');
 ?>
 
 <main class="site-main py-5">

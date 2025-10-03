@@ -277,6 +277,8 @@ img {
   visibility: hidden;
   z-index: 100;
   background-color: #ffffff;
+  transform: translate(0, 10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   -webkit-transition: 0.3s ease-in-out;
   -moz-transition: 0.3s ease-in-out;
   -o-transition: 0.3s ease-in-out;
@@ -297,6 +299,54 @@ img {
 .header-wrapper .primary-nav ul li.menu-item-has-children:hover ul.sub-menu {
   visibility: visible;
   opacity: 1;
+  transform: translate(0, 0);
+}
+
+.megamenu ul.sub-menu {
+  min-width: 930px !important;
+  max-width: 930px !important;
+  left: 0 !important;
+  transform: translate(-50%, 10px) !important;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.megamenu ul.sub-menu li .menu-item-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: top;
+}
+.megamenu ul.sub-menu li a {
+  border-radius: 5px;
+}
+.megamenu ul.sub-menu li a div.menu-icon i {
+  color: #0069FF;
+  display: inline-block;
+  font-size: 25px;
+  background-color: #cce1ff !important;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+}
+.megamenu ul.sub-menu li a div.menu-content .menu-title {
+  color: #001539;
+}
+.megamenu ul.sub-menu li a div.menu-content .menu-desc {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 400;
+}
+.megamenu ul.sub-menu li a:hover {
+  background-color: #cce1ff !important;
+}
+.megamenu ul.sub-menu li a:hover div.menu-content .menu-title {
+  color: #0069FF;
+}
+.megamenu:hover ul.sub-menu {
+  transform: translate(-50%, 0) !important;
 }
 
 .mean-container a.meanmenu-reveal {
@@ -327,6 +377,53 @@ img {
   text-transform: capitalize;
 }
 
+@media all and (max-width: 992px) {
+  .megamenu {
+    overflow: hidden;
+  }
+  .megamenu ul.sub-menu {
+    max-width: 94% !important;
+    min-width: 94% !important;
+    transform: translate(0, 0) !important;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .megamenu ul.sub-menu li a {
+    float: inherit !important;
+    opacity: 1 !important;
+    border: none !important;
+  }
+  .megamenu ul.sub-menu li a .menu-content .menu-title {
+    font-size: 16px;
+    color: #ffffff !important;
+    font-weight: 600;
+  }
+  .megamenu ul.sub-menu li a .menu-content .menu-desc {
+    font-size: 13px;
+    color: #ffffff !important;
+  }
+  .megamenu ul.sub-menu li a:hover {
+    background-color: #000c20 !important;
+  }
+  .megamenu ul.sub-menu li a:hover div.menu-content .menu-title {
+    color: #ffffff !important;
+  }
+  .megamenu ul.sub-menu li a:hover .menu-desc {
+    color: #ffffff !important;
+  }
+  .megamenu:hover ul.sub-menu {
+    transform: translate(0, 0) !important;
+  }
+  .megamenu:hover ul.sub-menu li a {
+    float: none !important;
+    opacity: 1 !important;
+  }
+}
+@media all and (max-width: 768px) {
+  .megamenu ul.sub-menu {
+    max-width: 92% !important;
+    min-width: 92% !important;
+  }
+}
 .banner-bg {
   background: linear-gradient(180deg, rgb(247, 255, 237) 0%, rgba(255, 255, 255, 0) 100%);
 }

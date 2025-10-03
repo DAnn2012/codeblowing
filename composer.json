@@ -1,0 +1,30 @@
+{
+    "name": "codeblowing/codeblowing",
+    "description": "Codeblowing is the most secured WordPress multipurpose theme.",
+    "type": "wordpress-theme",
+    "autoload": {
+        "psr-4": {
+            "CodeBlowing\\": "inc/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Code Blowing"
+        }
+    ],
+    "require": {
+        "wpmetabox/meta-box-lite": "^2.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$vendor}/{$name}/": ["type:wordpress-plugin"]
+        }
+    }
+}
