@@ -50,6 +50,34 @@ if ( ! function_exists( 'codeblowing_woocommerce_output_related_products' ) ) {
 	}
 }
 
+/**
+ * Output a single meta row for product details.
+ *
+ * @param string $label The field label.
+ * @param string $value The field value.
+ */
+function codeblowing_output_meta_row( $label, $value ) {
+    if ( empty( $label ) || empty( $value ) ) {
+        return;
+    }
+
+    ?>
+    <tr>
+        <td>
+            <div class="title">
+                <h4 class="m-0 fs-6 text-secondary fw-bold"><?php echo esc_html( $label ); ?>:</h4>
+            </div>
+        </td>
+        <td>
+            <div class="text-capitalize text-secondary"><?php echo esc_html( $value ); ?></div>
+        </td>
+    </tr>
+    <?php
+}
+
+/**
+ * Displays custom meta fields on the single product page.
+ */
 function codeblowing_single_product_custom_metabox_value() {
     global $product;
 
@@ -58,82 +86,80 @@ function codeblowing_single_product_custom_metabox_value() {
     }
 
     $meta_fields = [
-        'product_version'     => '_cb_product_version',
-        'product_type'        => '_product_type',
-        'high_resolution'     => '_high_resolution',
-        'image_included'      => '_image_included',
-        'compatible_browsers' => '_compatible_browsers',
-        'frontend_framework'  => '_frontend_framework',
-        'files_included'      => '_files_included',
-        'wordpress_version'   => '_wordpress_version',
+        'Product Version'     => '_cb_product_version',
+        'Product Type'        => '_product_type',
+        'High Resolution'     => '_high_resolution',
+        'Image Included'      => '_image_included',
+        'Compatible Browsers' => '_compatible_browsers',
+        'Frontend Framework'  => '_frontend_framework',
+        'Frontend Framework Version'  => '_frontend_framework_version',
+        'Backend Framework'  => '_backend_framework',
+        'Backend Framework Version'  => '_backend_framework_version',
+        'WordPress Version'   => '_wordpress_version',
+        'Files Included'      => '_files_included',
+    ];
+
+    $multiple_fields = [
+        '_compatible_browsers',
+        '_frontend_framework',
+        '_files_included',
+        '_wordpress_version',
+        '_files_included',
     ];
 
     $meta_values = [];
 
-    foreach ( $meta_fields as $key => $meta_key ) {
-        $meta_values[ $key ] = get_post_meta( $product->get_id(), $meta_key, true );
+    foreach ( $meta_fields as $label => $key ) {
+        if( in_array( $key, $multiple_fields ) ) {
+            $value = get_post_meta( $product->get_id(), $key, false );
+            if ( is_array( $value ) ) {
+                $value = implode( ', ', $value );
+            }
+        } else {
+            $value = get_post_meta( $product->get_id(), $key, true );
+        }
+
+        if ( ! empty( $value ) ) {
+            $meta_values[ $label ] = $value;
+        }
     }
 
-    // Check if any of the meta fields are not empty
-    if ( ! array_filter( $meta_values ) ) {
+    if ( empty( $meta_values ) ) {
         return;
     }
-
     ?>
     <div class="card mt-3">
+        <div class="card-header bg-white">
+            <h4 class="m-0 fs-5 text-dark fw-bold"><?php esc_html_e( 'Product Details', 'codeblowing' ); ?></h4>
+        </div>
         <div class="card-body">
             <table class="table table-white product-single-meta mb-0">
-                <?php if ( ! empty( $meta_values['product_type'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'Product Type', $meta_values['product_type'] ); ?>
-                <?php endif; ?>
-
-                <?php if ( ! empty( $meta_values['product_version'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'Product Version', $meta_values['product_version'] ); ?>
-                <?php endif; ?>
-
-                <?php if ( ! empty( $meta_values['high_resolution'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'High Resolution', $meta_values['high_resolution'] ); ?>
-                <?php endif; ?>
-
-                <?php if ( ! empty( $meta_values['compatible_browsers'] ) && is_array( $meta_values['compatible_browsers'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'Compatible Browsers', implode( ', ', $meta_values['compatible_browsers'] ) ); ?>
-                <?php endif; ?>
-
-                <?php if ( ! empty( $meta_values['frontend_framework'] ) && is_array( $meta_values['frontend_framework'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'Frontend Framework', implode( ', ', $meta_values['frontend_framework'] ) ); ?>
-                <?php endif; ?>
-
-                <?php if ( ! empty( $meta_values['wordpress_version'] ) && is_array( $meta_values['wordpress_version'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'WordPress Version', implode( ', ', $meta_values['wordpress_version'] ) ); ?>
-                <?php endif; ?>
-
-                <?php if ( ! empty( $meta_values['image_included'] ) ) : ?>
-                    <?php codeblowing_output_meta_row( 'Image Included', $meta_values['image_included'] ); ?>
-                <?php endif; ?>
+                <tr>
+                    <td>
+                        <div class="title">
+                            <h4 class="m-0 fs-6 text-secondary fw-bold">First Released:</h4>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-capitalize text-secondary"><?php echo get_the_date( 'j F Y' ); ?></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="title">
+                            <h4 class="m-0 fs-6 text-secondary fw-bold">Last Updated:</h4>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-capitalize text-secondary"><?php echo get_the_modified_date( 'j F Y' ); ?></div>
+                    </td>
+                </tr>
+                <?php foreach ( $meta_values as $label => $value ) : ?>
+                    <?php codeblowing_output_meta_row( $label, $value ); ?>
+                <?php endforeach; ?>
             </table>
         </div>
     </div>
-    <?php
-}
-
-/**
- * Outputs a table row for a product meta field.
- *
- * @param string $label
- * @param string $value
- */
-function codeblowing_output_meta_row( $label, $value ) {
-    ?>
-    <tr>
-        <td>
-            <div class="title">
-                <h4 class="m-0 fs-6 text-dark fw-bold"><?php echo esc_html( $label ); ?>:</h4>
-            </div>
-        </td>
-        <td>
-            <div class="text-capitalize text-secondary"><?php echo esc_html( $value ); ?></div>
-        </td>
-    </tr>
     <?php
 }
 

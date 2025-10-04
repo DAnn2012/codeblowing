@@ -832,8 +832,15 @@ img {
   font-size: 20px;
   margin: 1rem 0;
 }
+.woocommerce-Tabs-panel--description ul li::before {
+  content: "-";
+  font-weight: 700;
+  font-size: 18px;
+  margin-right: 6px;
+}
 .woocommerce-Tabs-panel--description ul,
-.woocommerce-Tabs-panel--description ol {
+.woocommerce-Tabs-panel--description ol,
+.woocommerce-Tabs-panel--description p {
   color: #6c757d;
 }
 

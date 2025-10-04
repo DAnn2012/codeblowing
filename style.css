@@ -121,8 +121,9 @@ button.single_add_to_cart_button.btn-primary:focus,
 button[name="update_cart"]
 {
     color: #ffffff !important;
-    background-color: #1662c5 !important;
-    border-color: #155cba !important;
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    padding: 15px 25px !important;
 }
 .button.wc-forward,
 .coupon button,

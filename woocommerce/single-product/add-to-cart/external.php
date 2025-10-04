@@ -23,10 +23,10 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 <form class="cart" action="<?php echo esc_url( $product_url ); ?>" method="get">
 	<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
     <?php if( ! empty( $live_url ) ) : ?>
-	<a href="<?php echo esc_url( $live_url ); ?>" class="live_url btn btn-dark d-block">Live URL</a>
+	<a href="<?php echo esc_url( $live_url ); ?>" class="live_url btn btn-dark d-block"><i class="fa-solid fa-link me-2"></i> Live URL</a>
     <?php endif; ?>
 
-	<button type="submit" class="single_add_to_cart_button btn btn-primary mt-3 alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><?php echo esc_html( $button_text ); ?></button>
+	<button type="submit" class="btn btn-primary w-100 mt-3 alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><i class="fa-solid fa-arrow-up-right-from-square me-2"></i> <?php echo esc_html( $button_text ); ?></button>
 
 	<?php wc_query_string_form_fields( $product_url ); ?>
 

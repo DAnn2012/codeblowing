@@ -11,8 +11,20 @@
         font-size: 20px;
         margin: 1rem 0;
     }
+    ul {
+        li {
+            
+            &::before {
+                content: "-";
+                font-weight: 700;
+                font-size: 18px;
+                margin-right: 6px;
+            }
+        }
+    }
     ul,
-    ol {
+    ol,
+    p {
         color: $secondary;
     }
 }
