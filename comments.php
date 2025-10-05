@@ -40,7 +40,8 @@ if (post_password_required()) {
                 );
             } else {
                 printf(
-                    esc_html('%1$s Comments', $comment_count, 'comments title', 'code-blowing'),
+					/* translators: 1: comment count number */
+                    esc_html( _nx( '%1$s Comment', '%1$s Comments', $comment_count, 'comments title', 'code-blowing') ),
                     number_format_i18n($comment_count)
                 );
             }
